@@ -67,6 +67,7 @@ dependencies {
 
     // Dagger
     implementation libs.dagger
+    kapt libs.dagger.processor
     kapt libs.dagger.compiler
 
     // Coroutines
