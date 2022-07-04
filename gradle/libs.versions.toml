@@ -6,7 +6,7 @@ appcompat = "1.4.2"
 lifecycle = "2.5.0-rc02"
 compose = "1.2.0-rc02"
 compose-activity = "1.4.0"
-accompanist = "0.24.12-rc"
+accompanist = "0.24.13-rc"
 retrofit = "2.9.0"
 gson = "2.8.9"
 dagger = "2.42"
@@ -28,17 +28,20 @@ lifecycle-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose",
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-test = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "compose-activity" }
 
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 
-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger = { module = "com.google.dagger:dagger-android", version.ref = "dagger" }
+dagger-processor = { module = "com.google.dagger:dagger-android-processor", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -55,12 +58,16 @@ junit-ext = { module = "androidx.test.ext:junit", version.ref = "junit-ext" }
 lifecycle = ["lifecycle-runtime", "lifecycle-viewmodel", "lifecycle-compose"]
 compose = [
     "compose-ui",
-    "compose-material",
     "compose-ui-tooling",
+    "compose-ui-tooling-preview",
+    "compose-material",
     "compose-foundation",
-    "compose-activity"
+    "compose-activity",
 ]
-accompanist = ["accompanist-systemuicontroller"]
+accompanist = [
+    "accompanist-systemuicontroller",
+    "accompanist-navigation-animation",
+]
 retrofit = ["retrofit", "retrofit-converter", "gson"]
 coroutines = ["coroutines-core", "coroutines-android"]
 
