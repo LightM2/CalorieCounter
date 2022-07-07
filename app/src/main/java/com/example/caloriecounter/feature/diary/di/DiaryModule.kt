@@ -1,6 +1,9 @@
 package com.example.caloriecounter.feature.diary.di
 
 import com.example.caloriecounter.feature.diary.DiaryViewModel
+import com.example.data.repositories.RetrofitRepoImpl
+import com.example.domain.repositories.RetrofitRepo
+import com.example.domain.usecases.GetCategoryListUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -8,6 +11,10 @@ import dagger.Provides
 class DiaryModule {
 
     @Provides
+    fun provideRetrofitRepo(retrofitRepoImpl: RetrofitRepoImpl): RetrofitRepo = retrofitRepoImpl
+
+
+    @Provides
     @DiaryScope
-    fun provideViewModel(): DiaryViewModel = DiaryViewModel()
+    fun provideViewModel(getCategoryListUseCase: GetCategoryListUseCase): DiaryViewModel = DiaryViewModel(getCategoryListUseCase)
 }
