@@ -11,9 +11,8 @@ import javax.inject.Inject
 private const val TAG = "DiaryViewModel"
 
 class DiaryViewModel @Inject constructor(
-    private val getCategoryListUseCase: GetCategoryListUseCase
-) :
-    BaseViewModel<DiaryContract.Event, DiaryContract.State, DiaryContract.Effect>() {
+    private val getCategoryListUseCase: GetCategoryListUseCase,
+) : BaseViewModel<DiaryContract.Event, DiaryContract.State, DiaryContract.Effect>() {
 
 
     init {

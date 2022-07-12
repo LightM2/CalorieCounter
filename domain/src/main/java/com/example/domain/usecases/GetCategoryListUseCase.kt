@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class GetCategoryListUseCase @Inject constructor(private val retrofitRepo: RetrofitRepo) {
+class GetCategoryListUseCase @Inject constructor(val retrofitRepo: RetrofitRepo) {
 
     suspend operator fun invoke(): Resource<List<Category>> =
         withContext(Dispatchers.IO) { retrofitRepo.getCategories() }

@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import com.example.caloriecounter.base.daggerViewModel
+import com.example.caloriecounter.di.DaggerActivityComponent
 import com.example.caloriecounter.feature.diary.DiaryViewModel
-import com.example.caloriecounter.feature.diary.di.DaggerDiaryComponent
 import com.example.caloriecounter.ui.theme.CalorieCounterTheme
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -24,6 +24,8 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val activityComponent = DaggerActivityComponent.builder().activity(this).build()
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
@@ -44,8 +46,7 @@ class MainActivity : ComponentActivity() {
                     startDestination = NavigationDestination.DiaryScreen.destination
                 ) {
                     composable(NavigationDestination.DiaryScreen.destination) {
-
-                        val component = DaggerDiaryComponent.builder().build()
+                        val component = activityComponent.diaryComponentBuilder.build()
 
                         val viewModel: DiaryViewModel = daggerViewModel {
                             component.getViewModel()

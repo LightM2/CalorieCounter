@@ -1,6 +1,8 @@
 package com.example.caloriecounter.di
 
 import com.example.data.ApiService
+import com.example.data.repositories.RetrofitRepoImpl
+import com.example.domain.repositories.RetrofitRepo
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -9,7 +11,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module
 class NetworkModule {
@@ -41,4 +42,7 @@ class NetworkModule {
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
+
+    @Provides
+    fun provideRetrofitRepo(retrofitRepoImpl: RetrofitRepoImpl): RetrofitRepo = retrofitRepoImpl
 }
