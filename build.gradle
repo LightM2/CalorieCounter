@@ -1,15 +1,19 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlinx:kover:0.5.0"
+    }
+}
+
 plugins {
     alias libs.plugins.android.application apply false
     alias libs.plugins.android.library apply false
     alias libs.plugins.kotlin.android apply false
     alias libs.plugins.kotlin.kapt apply false
-}
-
-subprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+    id "org.jetbrains.kotlinx.kover" version "0.5.0"
 }
 
 task clean(type: Delete) {

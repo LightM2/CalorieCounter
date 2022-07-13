@@ -1,21 +1,14 @@
 package com.example.caloriecounter.di
 
-import android.app.Application
-import com.example.caloriecounter.App
-import dagger.Binds
+import com.example.domain.annotation.IODispatcher
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
 @Module
-abstract class AppModule {
+class AppModule {
 
-    @Binds
-    abstract fun application(app: App): Application
-
-    companion object {
-        @Provides
-        fun appDispatcher(): CoroutineDispatcher = Dispatchers.IO
-    }
+    @get:[Provides IODispatcher]
+    val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 }

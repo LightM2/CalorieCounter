@@ -1,17 +1,15 @@
 package com.example.caloriecounter.feature.diary.di
 
 import com.example.caloriecounter.feature.diary.DiaryViewModel
-import dagger.Component
+import dagger.Subcomponent
 
-@Component(
-    modules = [DiaryModule::class]
-)
+@Subcomponent(modules = [DiaryModule::class])
 @DiaryScope
 interface DiaryComponent {
-    @Component.Builder
+    @Subcomponent.Builder
     interface Builder {
         fun build(): DiaryComponent
     }
 
-    fun getViewModel() : DiaryViewModel
+    fun getViewModel(): DiaryViewModel
 }

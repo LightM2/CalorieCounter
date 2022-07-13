@@ -6,15 +6,11 @@ import com.example.caloriecounter.base.BaseState
 
 class DiaryContract {
 
-    sealed class Event : BaseEvent {
-
-    }
+    sealed class Event : BaseEvent
 
     data class State(
         val isLoading: Boolean = false
     ) : BaseState
 
-    sealed class Effect : BaseSideEffect {
-
-    }
+    sealed class Effect : BaseSideEffect
 }
