@@ -7,7 +7,6 @@ sealed class Resource<out T> {
     data class Success<T>(val data: T?) : Resource<T>()
 
     data class Error<T>(val error: String?) : Resource<T>()
-
 }
 
 fun <T> Resource<T>.handle(onSuccess: (T) -> Unit, onError: (String?) -> Unit) {

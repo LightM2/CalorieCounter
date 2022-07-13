@@ -14,7 +14,6 @@ class DiaryViewModel @Inject constructor(
     private val getCategoryListUseCase: GetCategoryListUseCase,
 ) : BaseViewModel<DiaryContract.Event, DiaryContract.State, DiaryContract.Effect>() {
 
-
     init {
         viewModelScope.launch {
             getCategoryListUseCase().handle(
@@ -33,6 +32,5 @@ class DiaryViewModel @Inject constructor(
     }
 
     override fun handleEvents(event: DiaryContract.Event) {
-
     }
 }

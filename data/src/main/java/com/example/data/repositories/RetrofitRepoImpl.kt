@@ -9,7 +9,7 @@ import com.example.domain.models.Meal
 import com.example.domain.repositories.RetrofitRepo
 import javax.inject.Inject
 
-class RetrofitRepoImpl @Inject constructor(private val apiService: ApiService): RetrofitRepo {
+class RetrofitRepoImpl @Inject constructor(private val apiService: ApiService) : RetrofitRepo {
     override suspend fun getMeals(category: String): Resource<List<Meal>> =
         handleMappedResponse(
             call = { apiService.getMeals(category) },

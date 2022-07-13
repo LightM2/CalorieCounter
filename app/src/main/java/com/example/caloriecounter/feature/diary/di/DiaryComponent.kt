@@ -11,5 +11,5 @@ interface DiaryComponent {
         fun build(): DiaryComponent
     }
 
-    fun getViewModel() : DiaryViewModel
+    fun getViewModel(): DiaryViewModel
 }

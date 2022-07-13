@@ -58,9 +58,7 @@ class MainActivity : ComponentActivity() {
                             color = Color.DarkGray
                         )
                     }
-
                 }
-
             }
         }
     }
