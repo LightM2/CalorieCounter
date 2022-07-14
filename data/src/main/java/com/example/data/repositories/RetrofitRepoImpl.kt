@@ -1,7 +1,7 @@
 package com.example.data.repositories
 
-import com.example.data.ApiService
-import com.example.data.models.*
+import com.example.data.retrofit.ApiService
+import com.example.data.retrofit.models.*
 import com.example.domain.Resource
 import com.example.domain.handleMappedResponse
 import com.example.domain.models.Category

@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.caloriecounter.base.BaseViewModel
 import com.example.domain.handle
-import com.example.domain.usecases.GetCategoryListUseCase
+import com.example.domain.usecases.retrofit.GetCategoryListUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

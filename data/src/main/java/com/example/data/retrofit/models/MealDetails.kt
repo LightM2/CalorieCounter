@@ -1,4 +1,4 @@
-package com.example.data.models
+package com.example.data.retrofit.models
 
 import com.example.domain.models.Ingredient
 import com.example.domain.models.Meal

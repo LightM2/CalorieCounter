@@ -1,7 +1,7 @@
-package com.example.data
+package com.example.data.retrofit
 
-import com.example.data.models.Categories
-import com.example.data.models.Meals
+import com.example.data.retrofit.models.Categories
+import com.example.data.retrofit.models.Meals
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

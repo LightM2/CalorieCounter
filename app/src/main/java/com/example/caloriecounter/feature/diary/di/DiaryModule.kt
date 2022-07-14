@@ -1,7 +1,7 @@
 package com.example.caloriecounter.feature.diary.di
 
 import com.example.caloriecounter.feature.diary.DiaryViewModel
-import com.example.domain.usecases.GetCategoryListUseCase
+import com.example.domain.usecases.retrofit.GetCategoryListUseCase
 import dagger.Module
 import dagger.Provides
 
