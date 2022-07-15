@@ -2,6 +2,7 @@ package com.example.caloriecounter.feature.diary.di
 
 import com.example.caloriecounter.feature.diary.DiaryViewModel
 import com.example.domain.usecases.retrofit.GetCategoryListUseCase
+import com.example.domain.usecases.room.AddDailyMealUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -10,5 +11,8 @@ class DiaryModule {
 
     @Provides
     @DiaryScope
-    fun provideViewModel(getCategoryListUseCase: GetCategoryListUseCase): DiaryViewModel = DiaryViewModel(getCategoryListUseCase)
+    fun provideViewModel(
+        getCategoryListUseCase: GetCategoryListUseCase,
+        addDailyMealUseCase: AddDailyMealUseCase,
+    ): DiaryViewModel = DiaryViewModel(getCategoryListUseCase, addDailyMealUseCase)
 }
