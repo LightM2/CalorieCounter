@@ -1,4 +1,4 @@
-package com.example.domain.usecases
+package com.example.domain.usecases.retrofit
 
 import com.example.domain.Resource
 import com.example.domain.annotation.IODispatcher
