@@ -28,23 +28,6 @@ class DiaryViewModel @Inject constructor(
                 }
             )
         }
-
-        addMealToDB()
-    }
-
-    private fun addMealToDB() {
-        val meal = Meal(
-            "1",
-            "meal",
-            "url",
-            "area",
-            "category",
-            "instruction",
-            listOf()
-        )
-        viewModelScope.launch {
-            addDailyMealUseCase(meal)
-        }
     }
 
     override fun setInitialState(): DiaryContract.State {
