@@ -3,6 +3,8 @@ package com.example.caloriecounter.di
 import android.content.Context
 import com.example.caloriecounter.MainActivity
 import com.example.caloriecounter.feature.diary.di.DiaryComponent
+import com.example.caloriecounter.feature.profile.di.ProfileComponent
+import com.example.caloriecounter.feature.restaurant.di.RestaurantComponent
 import com.example.domain.annotation.IODispatcher
 import dagger.BindsInstance
 import dagger.Component
@@ -21,6 +23,8 @@ import javax.inject.Singleton
 )
 interface ActivityComponent {
     val diaryComponentBuilder: DiaryComponent.Builder
+    val profileComponentBuilder: ProfileComponent.Builder
+    val restaurantComponentBuilder: RestaurantComponent.Builder
 
     @get:IODispatcher
     val ioDispatcher: CoroutineDispatcher

@@ -11,8 +11,5 @@ class DiaryModule {
 
     @Provides
     @DiaryScope
-    fun provideViewModel(
-        getCategoryListUseCase: GetCategoryListUseCase,
-        addDailyMealUseCase: AddDailyMealUseCase,
-    ): DiaryViewModel = DiaryViewModel(getCategoryListUseCase, addDailyMealUseCase)
+    fun provideViewModel(): DiaryViewModel = DiaryViewModel()
 }

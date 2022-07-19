@@ -45,7 +45,7 @@ fun BottomBar(navController: NavHostController) {
                 label = {
                     Text(stringResource(id = screen.title))
                 },
-                alwaysShowLabel = false,
+                alwaysShowLabel = true,
                 onClick = {
                     if (currentRoute != screen.route) {
                         navController.navigate(screen.route)

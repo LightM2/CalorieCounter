@@ -1,10 +1,10 @@
-package com.example.caloriecounter.feature.diary
+package com.example.caloriecounter.feature.profile
 
 import com.example.caloriecounter.base.BaseEvent
 import com.example.caloriecounter.base.BaseSideEffect
 import com.example.caloriecounter.base.BaseState
 
-class DiaryContract {
+class ProfileContract {
     sealed class Event : BaseEvent
 
     data class State(

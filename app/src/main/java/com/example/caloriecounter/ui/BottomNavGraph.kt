@@ -9,7 +9,9 @@ import com.example.caloriecounter.base.daggerViewModel
 import com.example.caloriecounter.di.ActivityComponent
 import com.example.caloriecounter.feature.diary.DiaryViewModel
 import com.example.caloriecounter.feature.diary.ui.DiaryScreen
+import com.example.caloriecounter.feature.profile.ProfileViewModel
 import com.example.caloriecounter.feature.profile.ui.ProfileScreen
+import com.example.caloriecounter.feature.restaurant.RestaurantViewModel
 import com.example.caloriecounter.feature.restaurant.ui.RestaurantScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -35,10 +37,22 @@ fun BottomNavGraph(
             DiaryScreen(vm = viewModel)
         }
         composable(BottomBarScreen.Restaurant.route) {
-            RestaurantScreen()
+            val component = activityComponent.restaurantComponentBuilder.build()
+
+            val viewModel: RestaurantViewModel = daggerViewModel {
+                component.getViewModel()
+            }
+
+            RestaurantScreen(vm = viewModel)
         }
         composable(BottomBarScreen.Profile.route) {
-            ProfileScreen()
+            val component = activityComponent.profileComponentBuilder.build()
+
+            val viewModel: ProfileViewModel = daggerViewModel {
+                component.getViewModel()
+            }
+
+            ProfileScreen(vm = viewModel)
         }
     }
 }

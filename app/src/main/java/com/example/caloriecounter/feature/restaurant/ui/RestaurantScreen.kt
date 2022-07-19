@@ -5,16 +5,19 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.example.caloriecounter.feature.restaurant.RestaurantViewModel
 
 @Composable
 fun RestaurantScreen(
-
+    vm: RestaurantViewModel,
 ) {
     Text(
         text = "RestaurantScreen",
         fontSize = 24.sp,
         color = Color.DarkGray,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        textAlign = TextAlign.Center,
     )
 }
