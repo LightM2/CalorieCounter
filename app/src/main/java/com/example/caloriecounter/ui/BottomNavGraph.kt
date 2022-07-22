@@ -11,10 +11,10 @@ import com.example.caloriecounter.feature.diary.DiaryViewModel
 import com.example.caloriecounter.feature.diary.ui.DiaryScreen
 import com.example.caloriecounter.feature.profile.ProfileViewModel
 import com.example.caloriecounter.feature.profile.ui.ProfileScreen
-import com.example.caloriecounter.feature.restaurant.RestaurantViewModel
-import com.example.caloriecounter.feature.restaurant.ui.RestaurantScreen
+import com.example.caloriecounter.feature.restaurant.ui.RestaurantNavGraph
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -25,6 +25,7 @@ fun BottomNavGraph(
     AnimatedNavHost(
         navController = navController,
         startDestination = BottomBarScreen.Diary.route,
+        route = Graph.ROOT,
         modifier = Modifier.systemBarsPadding()
     ) {
         composable(BottomBarScreen.Diary.route) {
@@ -37,13 +38,11 @@ fun BottomNavGraph(
             DiaryScreen(vm = viewModel)
         }
         composable(BottomBarScreen.Restaurant.route) {
-            val component = activityComponent.restaurantComponentBuilder.build()
-
-            val viewModel: RestaurantViewModel = daggerViewModel {
-                component.getViewModel()
-            }
-
-            RestaurantScreen(vm = viewModel)
+            val restaurantNavController = rememberAnimatedNavController()
+            RestaurantNavGraph(
+                navController = restaurantNavController,
+                activityComponent = activityComponent
+            )
         }
         composable(BottomBarScreen.Profile.route) {
             val component = activityComponent.profileComponentBuilder.build()
@@ -55,4 +54,9 @@ fun BottomNavGraph(
             ProfileScreen(vm = viewModel)
         }
     }
+}
+
+object Graph {
+    const val ROOT = "root_graph"
+    const val RESTAURANT = "restaurant_graph"
 }
