@@ -11,11 +11,10 @@ import com.example.caloriecounter.feature.diary.DiaryViewModel
 import com.example.caloriecounter.feature.diary.ui.DiaryScreen
 import com.example.caloriecounter.feature.profile.ProfileViewModel
 import com.example.caloriecounter.feature.profile.ui.ProfileScreen
-import com.example.caloriecounter.feature.restaurant.RestaurantViewModel
-import com.example.caloriecounter.feature.restaurant.ui.RestaurantScreen
-import com.example.caloriecounter.feature.restaurant.ui.restaurantNavGraph
+import com.example.caloriecounter.feature.restaurant.ui.RestaurantNavGraph
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -39,7 +38,11 @@ fun BottomNavGraph(
             DiaryScreen(vm = viewModel)
         }
         composable(BottomBarScreen.Restaurant.route) {
-            navController.navigate(Graph.RESTAURANT)
+            val restaurantNavController = rememberAnimatedNavController()
+            RestaurantNavGraph(
+                navController = restaurantNavController,
+                activityComponent = activityComponent
+            )
         }
         composable(BottomBarScreen.Profile.route) {
             val component = activityComponent.profileComponentBuilder.build()
@@ -50,7 +53,6 @@ fun BottomNavGraph(
 
             ProfileScreen(vm = viewModel)
         }
-        restaurantNavGraph(navController, activityComponent)
     }
 }
 
