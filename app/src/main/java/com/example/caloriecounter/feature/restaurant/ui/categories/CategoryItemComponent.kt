@@ -1,11 +1,17 @@
 package com.example.caloriecounter.feature.restaurant.ui.categories
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -30,6 +36,7 @@ fun CategoryItemComponent(
         onClick = { onClick(category.name) },
         elevation = 4.dp,
     ) {
+        var expanded by rememberSaveable { mutableStateOf(false) }
         Column {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
@@ -38,7 +45,7 @@ fun CategoryItemComponent(
                     .build(),
                 contentDescription = stringResource(id = R.string.category),
                 contentScale = ContentScale.FillWidth,
-                modifier = Modifier.aspectRatio(16/9f)
+                modifier = Modifier.aspectRatio(16 / 9f)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
@@ -50,10 +57,13 @@ fun CategoryItemComponent(
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = category.description,
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .animateContentSize()
+                    .clickable { expanded = !expanded },
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onBackground.copy(alpha = 0.5f),
-                maxLines = 2,
+                maxLines = if (expanded) 10 else 2,
                 overflow = TextOverflow.Ellipsis
             )
             Spacer(modifier = Modifier.height(16.dp))

@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.sp
 import com.example.caloriecounter.feature.restaurant.RestaurantViewModel
 
 @Composable
-fun MealList(vm: RestaurantViewModel) {
+fun MealList() {
     Text(
         text = "MealList",
         fontSize = 24.sp,
