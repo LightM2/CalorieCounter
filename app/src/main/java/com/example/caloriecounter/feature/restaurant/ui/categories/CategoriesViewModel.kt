@@ -1,4 +1,4 @@
-package com.example.caloriecounter.feature.restaurant
+package com.example.caloriecounter.feature.restaurant.ui.categories
 
 import androidx.lifecycle.viewModelScope
 import com.example.caloriecounter.base.BaseViewModel
@@ -8,9 +8,9 @@ import com.example.domain.usecases.retrofit.GetCategoryListUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class RestaurantViewModel @Inject constructor(
+class CategoriesViewModel @Inject constructor(
     val getCategoryListUseCase: GetCategoryListUseCase,
-) : BaseViewModel<RestaurantContract.Event, RestaurantContract.State, RestaurantContract.Effect>() {
+) : BaseViewModel<CategoriesContract.Event, CategoriesContract.State, CategoriesContract.Effect>() {
 
     init {
         getCategories()
@@ -29,16 +29,14 @@ class RestaurantViewModel @Inject constructor(
         }
     }
 
-    override fun setInitialState(): RestaurantContract.State = RestaurantContract.State(
+    override fun setInitialState(): CategoriesContract.State = CategoriesContract.State(
         categories = DataState(listOf(), true),
-        meals = DataState(listOf(), true),
-        mealRecipe = DataState(null, true),
     )
 
-    override fun handleEvents(event: RestaurantContract.Event) {
+    override fun handleEvents(event: CategoriesContract.Event) {
         when (event) {
-            is RestaurantContract.Event.SelectedCategory -> {
-                setEffect { RestaurantContract.Effect.Navigation.ToCategoryMeals(event.category) }
+            is CategoriesContract.Event.SelectedCategory -> {
+                setEffect { CategoriesContract.Effect.Navigation.ToCategoryMeals(event.category) }
 
             }
         }

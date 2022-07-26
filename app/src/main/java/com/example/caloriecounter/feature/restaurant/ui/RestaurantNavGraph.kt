@@ -21,7 +21,7 @@ fun RestaurantNavGraph(navController: NavHostController, activityComponent: Acti
         startDestination = RestaurantScreen.CategoryList.route
     ) {
         composable(RestaurantScreen.CategoryList.route) {
-            val component = activityComponent.restaurantComponentBuilder.build()
+            val component = activityComponent.restaurantCategoriesComponentBuilder.build()
             val vm = daggerViewModel {
                 component.getViewModel()
             }

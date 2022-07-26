@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.caloriecounter.feature.restaurant.RestaurantContract
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import com.example.caloriecounter.R
@@ -27,14 +26,14 @@ import kotlinx.coroutines.flow.Flow
 @Composable
 fun CategoryListScreen(
     categories: DataState<List<Category>>,
-    effectFlow: Flow<RestaurantContract.Effect>,
-    onEventSent: (event: RestaurantContract.Event) -> Unit,
+    effectFlow: Flow<CategoriesContract.Effect>,
+    onEventSent: (event: CategoriesContract.Event) -> Unit,
     onNavigationRequested: (category: String) -> Unit,
 ) {
     LaunchedEffect(Unit) {
         effectFlow.onEach { effect ->
             when (effect) {
-                is RestaurantContract.Effect.Navigation.ToCategoryMeals -> {
+                is CategoriesContract.Effect.Navigation.ToCategoryMeals -> {
                     onNavigationRequested(effect.category)
                 }
             }
@@ -55,7 +54,7 @@ fun CategoryListScreen(
             items(items = categories.data, key = { it.id }) { category ->
                 CategoryItemComponent(
                     category = category,
-                    onClick = { onEventSent(RestaurantContract.Event.SelectedCategory(it)) },
+                    onClick = { onEventSent(CategoriesContract.Event.SelectedCategory(it)) },
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
                 )
             }
