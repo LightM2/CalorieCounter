@@ -1,6 +1,8 @@
 package com.example.caloriecounter.feature.restaurant.ui.categories
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.caloriecounter.feature.restaurant.RestaurantContract
-import com.example.caloriecounter.feature.restaurant.ui.RestaurantScreen
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import com.example.caloriecounter.R
@@ -28,13 +29,13 @@ fun CategoryListScreen(
     categories: DataState<List<Category>>,
     effectFlow: Flow<RestaurantContract.Effect>,
     onEventSent: (event: RestaurantContract.Event) -> Unit,
-    onNavigationRequested: (route: String) -> Unit,
+    onNavigationRequested: (category: String) -> Unit,
 ) {
     LaunchedEffect(Unit) {
         effectFlow.onEach { effect ->
             when (effect) {
                 is RestaurantContract.Effect.Navigation.ToCategoryMeals -> {
-                    onNavigationRequested(RestaurantScreen.MealList.route)
+                    onNavigationRequested(effect.category)
                 }
             }
         }.launchIn(this)
@@ -62,7 +63,9 @@ fun CategoryListScreen(
 
         AnimatedVisibility(
             visible = categories.isLoading,
-            modifier = Modifier.align(Alignment.Center)
+            modifier = Modifier.align(Alignment.Center),
+            enter = fadeIn(),
+            exit = fadeOut()
         ) {
             CircularProgressIndicator()
         }

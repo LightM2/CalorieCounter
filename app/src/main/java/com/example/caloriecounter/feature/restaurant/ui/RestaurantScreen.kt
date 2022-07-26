@@ -1,7 +1,10 @@
 package com.example.caloriecounter.feature.restaurant.ui
 
-sealed class RestaurantScreen(val route: String){
+sealed class RestaurantScreen(val route: String, val navToRoute: String = route) {
     object CategoryList : RestaurantScreen("category_list")
-    object MealList : RestaurantScreen("meal_list")
-    object MealRecipe : RestaurantScreen("meal_recipe")
+    data class MealList(val argument: String = "category") :
+        RestaurantScreen("meal_list/{$argument}", "meal_list/$argument")
+
+    data class MealRecipe(val argument: String = "mealId") :
+        RestaurantScreen("meal_recipe/{$argument}", "meal_list/$argument")
 }

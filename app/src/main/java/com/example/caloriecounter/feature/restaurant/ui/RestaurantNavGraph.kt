@@ -3,18 +3,14 @@ package com.example.caloriecounter.feature.restaurant.ui
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
-import androidx.navigation.navigation
+import androidx.navigation.*
 import com.example.caloriecounter.base.daggerViewModel
 import com.example.caloriecounter.di.ActivityComponent
-import com.example.caloriecounter.feature.restaurant.RestaurantViewModel
 import com.example.caloriecounter.feature.restaurant.ui.categories.CategoryListScreen
 import com.example.caloriecounter.feature.restaurant.ui.meals.MealList
 import com.example.caloriecounter.ui.Graph
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -35,14 +31,25 @@ fun RestaurantNavGraph(navController: NavHostController, activityComponent: Acti
                 categories = state.value.categories,
                 effectFlow = vm.effect,
                 onEventSent = vm::setEvent,
-                onNavigationRequested = { navController.navigate(it) }
+                onNavigationRequested = { navController.navigate(RestaurantScreen.MealList(it).navToRoute) }
             )
-
         }
-        composable(RestaurantScreen.MealList.route) {
-            MealList()
+        composable(
+            route = RestaurantScreen.MealList().route,
+            arguments = listOf(navArgument(RestaurantScreen.MealList().argument) {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            val category =
+                backStackEntry.arguments?.getString(RestaurantScreen.MealList().argument) ?: ""
+            MealList(category)
         }
-        composable(RestaurantScreen.MealRecipe.route) {
+        composable(
+            route = RestaurantScreen.MealRecipe().route,
+            arguments = listOf(navArgument(RestaurantScreen.MealRecipe().argument) {
+                type = NavType.StringType
+            })
+        ) {
 
         }
     }
