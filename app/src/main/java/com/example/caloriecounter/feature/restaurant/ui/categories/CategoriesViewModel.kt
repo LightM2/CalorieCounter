@@ -30,7 +30,7 @@ class CategoriesViewModel @Inject constructor(
     }
 
     override fun setInitialState(): CategoriesContract.State = CategoriesContract.State(
-        categories = DataState(listOf(), true),
+        categories = DataState(emptyListOf(), true),
     )
 
     override fun handleEvents(event: CategoriesContract.Event) {
