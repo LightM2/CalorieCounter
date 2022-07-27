@@ -4,7 +4,9 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.*
+import com.example.caloriecounter.base.connectArgs
 import com.example.caloriecounter.base.daggerViewModel
+import com.example.caloriecounter.base.withArgs
 import com.example.caloriecounter.di.ActivityComponent
 import com.example.caloriecounter.feature.restaurant.ui.categories.CategoryListScreen
 import com.example.caloriecounter.feature.restaurant.ui.meals.MealList
@@ -31,11 +33,15 @@ fun RestaurantNavGraph(navController: NavHostController, activityComponent: Acti
                 categories = state.value.categories,
                 effectFlow = vm.effect,
                 onEventSent = vm::setEvent,
-                onNavigationRequested = { navController.navigate(RestaurantScreen.MealList(it).navToRoute) }
+                onNavigationRequested = { category ->
+                    RestaurantScreen.MealList(category).apply {
+                        navController.navigate(route.withArgs(argument))
+                    }
+                }
             )
         }
         composable(
-            route = RestaurantScreen.MealList().route,
+            route = RestaurantScreen.MealList().let { it.route.connectArgs(it.argument) },
             arguments = listOf(navArgument(RestaurantScreen.MealList().argument) {
                 type = NavType.StringType
             })

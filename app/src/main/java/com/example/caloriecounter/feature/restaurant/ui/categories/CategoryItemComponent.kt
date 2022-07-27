@@ -15,9 +15,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -44,6 +46,8 @@ fun CategoryItemComponent(
                     .crossfade(true)
                     .build(),
                 contentDescription = stringResource(id = R.string.category),
+                placeholder = painterResource(id = R.drawable.ic_meal_placeholder),
+                error = painterResource(id = R.drawable.ic_meal_placeholder),
                 contentScale = ContentScale.FillWidth,
                 modifier = Modifier.aspectRatio(16 / 9f)
             )
@@ -51,8 +55,7 @@ fun CategoryItemComponent(
             Text(
                 text = category.name,
                 modifier = Modifier.padding(horizontal = 16.dp),
-                style = MaterialTheme.typography.body1,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.body1.copy(fontWeight = FontWeight.Bold),
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
@@ -68,5 +71,25 @@ fun CategoryItemComponent(
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
+    }
+}
+
+@Preview(name = "CategoryItemComponent")
+@Composable
+private fun CategoryItemComponentPreview() {
+    MaterialTheme {
+        CategoryItemComponent(
+            category = Category(
+                id = "1",
+                name = "Dessert",
+                description = "Dessert is a course that concludes a meal. The course usually " +
+                        "consists of sweet foods, such as confections dishes or fruit, and " +
+                        "possibly a beverage such as dessert wine or liqueur, however in the " +
+                        "United States it may include coffee, cheeses, nuts, or other savory " +
+                        "items regarded as a separate course elsewhere.",
+                thumb = ""
+            ),
+            onClick = {}
+        )
     }
 }
