@@ -2,10 +2,7 @@ package com.example.caloriecounter.ui
 
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -29,8 +26,8 @@ fun BottomBar(navController: NavHostController) {
 
     BottomNavigation(
         modifier = Modifier.navigationBarsPadding(),
-        backgroundColor = Color.White,
-        contentColor = Color.Blue
+        backgroundColor = MaterialTheme.colors.background,
+        contentColor = MaterialTheme.colors.primary
     ) {
         screens.forEach { screen ->
             BottomNavigationItem(
