@@ -30,7 +30,7 @@ fun RestaurantNavGraph(navController: NavHostController, activityComponent: Acti
             val state = vm.viewState.collectAsState()
 
             CategoryListScreen(
-                categories = state.value.categories,
+                categoriesState = state.value,
                 effectFlow = vm.effect,
                 onEventSent = vm::setEvent,
                 onNavigationRequested = { category ->

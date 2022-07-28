@@ -19,35 +19,21 @@ class CategoriesViewModel @Inject constructor(
     private fun getCategories() {
         viewModelScope.launch {
             getCategoryListUseCase().handle(
-                onSuccess = {
+                onSuccess = { categories ->
                     setState {
-                        copy(
-                            categories = DataState(
-                                data = it,
-                                isLoading = false,
-                                errorMessage = null
-                            )
-                        )
+                        CategoriesContract.State.Success(categories)
                     }
                 },
-                onError = {
+                onError = { message ->
                     setState {
-                        copy(
-                            categories = DataState(
-                                emptyList(),
-                                isLoading = false,
-                                errorMessage = it,
-                            )
-                        )
+                        CategoriesContract.State.Error(message)
                     }
                 }
             )
         }
     }
 
-    override fun setInitialState(): CategoriesContract.State = CategoriesContract.State(
-        categories = DataState(emptyList(), isLoading = true, errorMessage = null)
-    )
+    override fun setInitialState(): CategoriesContract.State = CategoriesContract.State.Loading
 
     override fun handleEvents(event: CategoriesContract.Event) {
         when (event) {

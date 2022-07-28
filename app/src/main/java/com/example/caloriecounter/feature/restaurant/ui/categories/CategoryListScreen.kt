@@ -19,14 +19,12 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import com.example.caloriecounter.R
-import com.example.caloriecounter.base.DataState
 import com.example.caloriecounter.ui.ErrorScreen
-import com.example.domain.models.Category
 import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun CategoryListScreen(
-    categories: DataState<List<Category>>,
+    categoriesState: CategoriesContract.State,
     effectFlow: Flow<CategoriesContract.Effect>,
     onEventSent: (event: CategoriesContract.Event) -> Unit,
     onNavigationRequested: (category: String) -> Unit,
@@ -42,40 +40,43 @@ fun CategoryListScreen(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            item {
-                Text(
-                    text = stringResource(id = R.string.categories),
-                    modifier = Modifier.fillMaxWidth(),
-                    style = MaterialTheme.typography.h5,
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colors.primary
-                )
-            }
-
-            items(items = categories.data, key = { it.id }) { category ->
-                CategoryItemComponent(
-                    category = category,
-                    onClick = { onEventSent(CategoriesContract.Event.SelectedCategory(it)) },
-                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
-                )
-            }
-        }
-
-        AnimatedVisibility(
-            visible = !categories.errorMessage.isNullOrEmpty(),
-            modifier = Modifier.align(Alignment.Center),
-            enter = fadeIn(),
-            exit = fadeOut()
-        ) {
-            ErrorScreen(
-                errorMessage = categories.errorMessage ?: stringResource(id = R.string.error),
-                reloadData = { onEventSent(CategoriesContract.Event.ReloadData) }
+        Column {
+            Text(
+                text = stringResource(id = R.string.categories),
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.h5,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colors.primary
             )
+
+            when (categoriesState) {
+                is CategoriesContract.State.Success -> {
+                    LazyColumn {
+                        items(
+                            items = categoriesState.categories,
+                            key = { category -> category.id })
+                        { category ->
+                            CategoryItemComponent(
+                                category = category,
+                                onClick = { onEventSent(CategoriesContract.Event.SelectedCategory(it)) },
+                                modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
+                            )
+                        }
+                    }
+                }
+                is CategoriesContract.State.Error -> {
+                    ErrorScreen(
+                        errorMessage = categoriesState.message
+                            ?: stringResource(id = R.string.error),
+                        reloadData = { onEventSent(CategoriesContract.Event.ReloadData) }
+                    )
+                }
+            }
         }
 
+        //Loading
         AnimatedVisibility(
-            visible = categories.isLoading,
+            visible = categoriesState is CategoriesContract.State.Loading,
             modifier = Modifier.align(Alignment.Center),
             enter = fadeIn(),
             exit = fadeOut()

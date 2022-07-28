@@ -3,7 +3,6 @@ package com.example.caloriecounter.feature.restaurant.ui.categories
 import com.example.caloriecounter.base.BaseEvent
 import com.example.caloriecounter.base.BaseSideEffect
 import com.example.caloriecounter.base.BaseState
-import com.example.caloriecounter.base.DataState
 import com.example.domain.models.Category
 
 class CategoriesContract {
@@ -12,9 +11,11 @@ class CategoriesContract {
         object ReloadData : Event()
     }
 
-    data class State(
-        val categories: DataState<List<Category>>
-    ) : BaseState
+    sealed class State : BaseState {
+        data class Success(val categories: List<Category>) : State()
+        data class Error(val message: String?) : State()
+        object Loading : State()
+    }
 
     sealed class Effect : BaseSideEffect {
         sealed class Navigation : Effect() {
