@@ -9,10 +9,11 @@ import com.example.domain.models.Category
 class CategoriesContract {
     sealed class Event : BaseEvent {
         data class SelectedCategory(val category: String) : Event()
+        object ReloadData : Event()
     }
 
     data class State(
-        val categories: DataState<List<Category>>,
+        val categories: DataState<List<Category>>
     ) : BaseState
 
     sealed class Effect : BaseSideEffect {

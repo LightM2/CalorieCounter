@@ -21,23 +21,42 @@ class CategoriesViewModel @Inject constructor(
             getCategoryListUseCase().handle(
                 onSuccess = {
                     setState {
-                        copy(categories = DataState(it, false))
+                        copy(
+                            categories = DataState(
+                                data = it,
+                                isLoading = false,
+                                errorMessage = null
+                            )
+                        )
                     }
                 },
-                onError = {}
+                onError = {
+                    setState {
+                        copy(
+                            categories = DataState(
+                                emptyList(),
+                                isLoading = false,
+                                errorMessage = it,
+                            )
+                        )
+                    }
+                }
             )
         }
     }
 
     override fun setInitialState(): CategoriesContract.State = CategoriesContract.State(
-        categories = DataState(emptyList(), true),
+        categories = DataState(emptyList(), isLoading = true, errorMessage = null)
     )
 
     override fun handleEvents(event: CategoriesContract.Event) {
         when (event) {
             is CategoriesContract.Event.SelectedCategory -> {
                 setEffect { CategoriesContract.Effect.Navigation.ToCategoryMeals(event.category) }
-
+            }
+            is CategoriesContract.Event.ReloadData -> {
+                setInitialState()
+                getCategories()
             }
         }
     }

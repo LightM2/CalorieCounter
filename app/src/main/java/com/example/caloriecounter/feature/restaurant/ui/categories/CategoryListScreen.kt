@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import com.example.caloriecounter.R
 import com.example.caloriecounter.base.DataState
+import com.example.caloriecounter.ui.ErrorScreen
 import com.example.domain.models.Category
 import kotlinx.coroutines.flow.Flow
 
@@ -39,6 +40,7 @@ fun CategoryListScreen(
             }
         }.launchIn(this)
     }
+
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             item {
@@ -58,6 +60,18 @@ fun CategoryListScreen(
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
                 )
             }
+        }
+
+        AnimatedVisibility(
+            visible = !categories.errorMessage.isNullOrEmpty(),
+            modifier = Modifier.align(Alignment.Center),
+            enter = fadeIn(),
+            exit = fadeOut()
+        ) {
+            ErrorScreen(
+                errorMessage = categories.errorMessage ?: stringResource(id = R.string.error),
+                reloadData = { onEventSent(CategoriesContract.Event.ReloadData) }
+            )
         }
 
         AnimatedVisibility(

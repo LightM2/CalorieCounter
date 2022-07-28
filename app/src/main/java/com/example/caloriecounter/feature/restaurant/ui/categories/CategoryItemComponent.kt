@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.caloriecounter.R
+import com.example.caloriecounter.ui.theme.CalorieCounterTheme
 import com.example.domain.models.Category
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -77,7 +78,7 @@ fun CategoryItemComponent(
 @Preview(name = "CategoryItemComponent")
 @Composable
 private fun CategoryItemComponentPreview() {
-    MaterialTheme {
+    CalorieCounterTheme {
         CategoryItemComponent(
             category = Category(
                 id = "1",
