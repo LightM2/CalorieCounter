@@ -9,7 +9,7 @@ import com.example.caloriecounter.base.daggerViewModel
 import com.example.caloriecounter.base.withArgs
 import com.example.caloriecounter.di.ActivityComponent
 import com.example.caloriecounter.feature.restaurant.ui.categories.CategoryListScreen
-import com.example.caloriecounter.feature.restaurant.ui.meals.MealList
+import com.example.caloriecounter.feature.restaurant.ui.meals.MealListScreen
 import com.example.caloriecounter.ui.Graph
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -46,9 +46,24 @@ fun RestaurantNavGraph(navController: NavHostController, activityComponent: Acti
                 type = NavType.StringType
             })
         ) { backStackEntry ->
+            val component = activityComponent.restaurantMealsComponentBuilder.build()
+            val vm = daggerViewModel {
+                component.getViewModel()
+            }
+            val state = vm.viewState.collectAsState()
             val category =
                 backStackEntry.arguments?.getString(RestaurantScreen.MealList().argument) ?: ""
-            MealList(category)
+
+            MealListScreen(
+                mealsState = state.value,
+                effectFlow = vm.effect,
+                onEventSent = vm::setEvent,
+                onNavigationRequested = { mealId ->
+                    RestaurantScreen.MealRecipe(mealId).apply {
+                        navController.navigate(route.withArgs(argument))
+                    }
+                }
+            )
         }
         composable(
             route = RestaurantScreen.MealRecipe().route,

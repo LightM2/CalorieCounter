@@ -1,11 +1,10 @@
 package com.example.caloriecounter.feature.restaurant.di.categories
 
-import com.example.caloriecounter.feature.restaurant.di.RestaurantScope
 import com.example.caloriecounter.feature.restaurant.ui.categories.CategoriesViewModel
 import dagger.Subcomponent
 
 @Subcomponent(modules = [CategoriesModule::class])
-@RestaurantScope
+@CategoriesScope
 interface CategoriesComponent {
     @Subcomponent.Builder
     interface Builder {

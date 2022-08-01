@@ -5,6 +5,7 @@ import com.example.caloriecounter.MainActivity
 import com.example.caloriecounter.feature.diary.di.DiaryComponent
 import com.example.caloriecounter.feature.profile.di.ProfileComponent
 import com.example.caloriecounter.feature.restaurant.di.categories.CategoriesComponent
+import com.example.caloriecounter.feature.restaurant.di.meals.MealsComponent
 import com.example.domain.annotation.IODispatcher
 import dagger.BindsInstance
 import dagger.Component
@@ -25,6 +26,7 @@ interface ActivityComponent {
     val diaryComponentBuilder: DiaryComponent.Builder
     val profileComponentBuilder: ProfileComponent.Builder
     val restaurantCategoriesComponentBuilder: CategoriesComponent.Builder
+    val restaurantMealsComponentBuilder: MealsComponent.Builder
 
     @get:IODispatcher
     val ioDispatcher: CoroutineDispatcher
