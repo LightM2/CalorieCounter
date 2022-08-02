@@ -46,13 +46,13 @@ fun RestaurantNavGraph(navController: NavHostController, activityComponent: Acti
                 type = NavType.StringType
             })
         ) { backStackEntry ->
-            val component = activityComponent.restaurantMealsComponentBuilder.build()
+            val component = activityComponent.restaurantMealsComponentBuilder
+                .navBackStackEntry(backStackEntry)
+                .build()
             val vm = daggerViewModel {
                 component.getViewModel()
             }
             val state = vm.viewState.collectAsState()
-            val category =
-                backStackEntry.arguments?.getString(RestaurantScreen.MealList().argument) ?: ""
 
             MealListScreen(
                 mealsState = state.value,
@@ -66,7 +66,7 @@ fun RestaurantNavGraph(navController: NavHostController, activityComponent: Acti
             )
         }
         composable(
-            route = RestaurantScreen.MealRecipe().route,
+            route = RestaurantScreen.MealRecipe().let { it.route.connectArgs(it.argument) },
             arguments = listOf(navArgument(RestaurantScreen.MealRecipe().argument) {
                 type = NavType.StringType
             })

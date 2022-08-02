@@ -1,6 +1,6 @@
 package com.example.caloriecounter.feature.restaurant.di.meals
 
-import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.NavBackStackEntry
 import com.example.caloriecounter.feature.restaurant.ui.meals.MealsViewModel
 import com.example.domain.usecases.retrofit.GetMealListUseCase
 import dagger.Module
@@ -13,6 +13,6 @@ class MealsModule {
     @MealsScope
     fun provideViewModel(
         getMealListUseCase: GetMealListUseCase,
-        savedHandle: SavedStateHandle
-    ): MealsViewModel = MealsViewModel(getMealListUseCase, savedHandle)
+        backStackEntry: NavBackStackEntry
+    ): MealsViewModel = MealsViewModel(getMealListUseCase, backStackEntry)
 }

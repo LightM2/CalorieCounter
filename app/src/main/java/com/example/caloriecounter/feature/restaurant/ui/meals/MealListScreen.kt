@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.example.caloriecounter.R
 import com.example.caloriecounter.ui.ErrorScreen
 import kotlinx.coroutines.flow.Flow
@@ -40,22 +41,26 @@ fun MealListScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column {
-            Text(
-                text = stringResource(id = R.string.meals),
-                modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.h5,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colors.primary
-            )
-
             when (mealsState) {
                 is MealsContract.State.Success -> {
+                    Text(
+                        text = mealsState.category,
+                        modifier = Modifier.fillMaxWidth(),
+                        style = MaterialTheme.typography.h5,
+                        textAlign = TextAlign.Center,
+                        color = MaterialTheme.colors.primary
+                    )
+
                     LazyColumn {
                         items(
                             items = mealsState.meals,
                             key = { meal -> meal.id })
                         { meal ->
-                            MealItemComponent(meal = meal, onClick = onNavigationRequested)
+                            MealItemComponent(
+                                meal = meal,
+                                onClick = onNavigationRequested,
+                                modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
+                            )
                         }
                     }
                 }

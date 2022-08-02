@@ -12,7 +12,7 @@ class MealsContract {
     }
 
     sealed class State : BaseState {
-        data class Success(val meals: List<Meal>) : State()
+        data class Success(val category: String, val meals: List<Meal>) : State()
         data class Error(val message: String?) : State()
         object Loading : State()
     }
