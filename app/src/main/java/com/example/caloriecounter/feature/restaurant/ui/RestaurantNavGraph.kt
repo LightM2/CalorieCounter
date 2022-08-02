@@ -41,7 +41,8 @@ fun RestaurantNavGraph(navController: NavHostController, activityComponent: Acti
             )
         }
         composable(
-            route = RestaurantScreen.MealList().let { it.route.connectArgs(it.argument) },
+            route = RestaurantScreen.MealList()
+                .let { screen -> screen.route.connectArgs(screen.argument) },
             arguments = listOf(navArgument(RestaurantScreen.MealList().argument) {
                 type = NavType.StringType
             })
@@ -66,7 +67,8 @@ fun RestaurantNavGraph(navController: NavHostController, activityComponent: Acti
             )
         }
         composable(
-            route = RestaurantScreen.MealRecipe().let { it.route.connectArgs(it.argument) },
+            route = RestaurantScreen.MealRecipe()
+                .let { screen -> screen.route.connectArgs(screen.argument) },
             arguments = listOf(navArgument(RestaurantScreen.MealRecipe().argument) {
                 type = NavType.StringType
             })
