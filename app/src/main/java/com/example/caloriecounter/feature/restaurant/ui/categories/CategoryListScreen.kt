@@ -20,15 +20,15 @@ import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun CategoryListScreen(
-    categoriesState: CategoriesContract.State,
-    effectFlow: Flow<CategoriesContract.Effect>,
-    onEventSent: (event: CategoriesContract.Event) -> Unit,
+    categoriesState: CategoriesState,
+    effectFlow: Flow<CategoriesEffect>,
+    onEventSent: (event: CategoriesEvent) -> Unit,
     onNavigationRequested: (category: String) -> Unit,
 ) {
     LaunchedEffect(Unit) {
         effectFlow.onEach { effect ->
             when (effect) {
-                is CategoriesContract.Effect.Navigation.ToCategoryMeals -> {
+                is CategoriesEffect.Navigation.ToCategoryMeals -> {
                     onNavigationRequested(effect.category)
                 }
             }
@@ -46,7 +46,7 @@ fun CategoryListScreen(
             )
 
             when (categoriesState) {
-                is CategoriesContract.State.Success -> {
+                is CategoriesState.Success -> {
                     LazyColumn {
                         items(
                             items = categoriesState.categories,
@@ -54,22 +54,22 @@ fun CategoryListScreen(
                         { category ->
                             CategoryItemComponent(
                                 category = category,
-                                onClick = { onEventSent(CategoriesContract.Event.SelectedCategory(it)) },
+                                onClick = { onEventSent(CategoriesEvent.SelectedCategory(it)) },
                                 modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
                             )
                         }
                     }
                 }
-                is CategoriesContract.State.Error -> {
+                is CategoriesState.Error -> {
                     ErrorScreen(
                         errorMessage = categoriesState.message
                             ?: stringResource(id = R.string.error),
-                        reloadData = { onEventSent(CategoriesContract.Event.ReloadData) }
+                        reloadData = { onEventSent(CategoriesEvent.ReloadData) }
                     )
                 }
             }
         }
 
-        LoadingScreen(visible = categoriesState is CategoriesContract.State.Loading)
+        LoadingScreen(visible = categoriesState is CategoriesState.Loading)
     }
 }

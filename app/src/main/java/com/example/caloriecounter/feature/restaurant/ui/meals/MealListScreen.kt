@@ -20,15 +20,15 @@ import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun MealListScreen(
-    mealsState: MealsContract.State,
-    effectFlow: Flow<MealsContract.Effect>,
-    onEventSent: (event: MealsContract.Event) -> Unit,
+    mealsState: MealsState,
+    effectFlow: Flow<MealsEffect>,
+    onEventSent: (event: MealsEvent) -> Unit,
     onNavigationRequested: (mealId: String) -> Unit,
 ) {
     LaunchedEffect(Unit) {
         effectFlow.onEach { effect ->
             when (effect) {
-                is MealsContract.Effect.Navigation.ToMealRecipe -> {
+                is MealsEffect.Navigation.ToMealRecipe -> {
                     onNavigationRequested(effect.mealId)
                 }
             }
@@ -38,7 +38,7 @@ fun MealListScreen(
     Box(modifier = Modifier.fillMaxSize()) {
         Column {
             when (mealsState) {
-                is MealsContract.State.Success -> {
+                is MealsState.Success -> {
                     Text(
                         text = mealsState.category,
                         modifier = Modifier.fillMaxWidth(),
@@ -60,16 +60,16 @@ fun MealListScreen(
                         }
                     }
                 }
-                is MealsContract.State.Error -> {
+                is MealsState.Error -> {
                     ErrorScreen(
                         errorMessage = mealsState.message
                             ?: stringResource(id = R.string.error),
-                        reloadData = { onEventSent(MealsContract.Event.ReloadData) }
+                        reloadData = { onEventSent(MealsEvent.ReloadData) }
                     )
                 }
             }
         }
 
-        LoadingScreen(visible = mealsState is MealsContract.State.Loading)
+        LoadingScreen(visible = mealsState is MealsState.Loading)
     }
 }

@@ -12,7 +12,7 @@ import javax.inject.Inject
 class MealsViewModel @Inject constructor(
     private val getMealListUseCase: GetMealListUseCase,
     private val backStackEntry: NavBackStackEntry,
-) : BaseViewModel<MealsContract.Event, MealsContract.State, MealsContract.Effect>() {
+) : BaseViewModel<MealsEvent, MealsState, MealsEffect>() {
 
     private var category = ""
 
@@ -31,26 +31,26 @@ class MealsViewModel @Inject constructor(
             getMealListUseCase(category).handle(
                 onSuccess = { meals ->
                     setState {
-                        MealsContract.State.Success(category = category, meals = meals)
+                        MealsState.Success(category = category, meals = meals)
                     }
                 },
                 onError = { message ->
                     setState {
-                        MealsContract.State.Error(message)
+                        MealsState.Error(message)
                     }
                 }
             )
         }
     }
 
-    override fun setInitialState(): MealsContract.State = MealsContract.State.Loading
+    override fun setInitialState(): MealsState = MealsState.Loading
 
-    override fun handleEvents(event: MealsContract.Event) {
+    override fun handleEvents(event: MealsEvent) {
         when (event) {
-            is MealsContract.Event.SelectedMeal -> {
-                setEffect { MealsContract.Effect.Navigation.ToMealRecipe(event.mealId) }
+            is MealsEvent.SelectedMeal -> {
+                setEffect { MealsEffect.Navigation.ToMealRecipe(event.mealId) }
             }
-            is MealsContract.Event.ReloadData -> {
+            is MealsEvent.ReloadData -> {
                 setInitialState()
                 getMealList()
             }
