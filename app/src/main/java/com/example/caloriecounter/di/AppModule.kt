@@ -7,8 +7,11 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
 @Module
-class AppModule {
+abstract class AppModule {
 
-    @get:[Provides IODispatcher]
-    val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    companion object {
+        @get:[Provides IODispatcher]
+        val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    }
+
 }

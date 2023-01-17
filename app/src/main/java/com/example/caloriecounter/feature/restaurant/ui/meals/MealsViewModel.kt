@@ -1,29 +1,26 @@
 package com.example.caloriecounter.feature.restaurant.ui.meals
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavBackStackEntry
 import com.example.caloriecounter.base.BaseViewModel
-import com.example.caloriecounter.feature.restaurant.ui.RestaurantScreen
+import com.example.caloriecounter.base.CATEGORY
+import com.example.caloriecounter.base.ViewModelAssistedFactory
 import com.example.domain.handle
 import com.example.domain.usecases.retrofit.GetMealListUseCase
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class MealsViewModel @Inject constructor(
+class MealsViewModel @AssistedInject constructor(
     private val getMealListUseCase: GetMealListUseCase,
-    private val backStackEntry: NavBackStackEntry,
+    @Assisted private val savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<MealsEvent, MealsState, MealsEffect>() {
 
-    private var category = ""
+    private val category : String by lazy { savedStateHandle.get<String>(CATEGORY) ?: "" }
 
     init {
-        getCategory()
         getMealList()
-    }
-
-    private fun getCategory() {
-        category = backStackEntry.arguments
-            ?.getString(RestaurantScreen.MealList().argument) ?: ""
     }
 
     private fun getMealList() {
@@ -56,4 +53,7 @@ class MealsViewModel @Inject constructor(
             }
         }
     }
+
+    @AssistedFactory
+    interface Factory : ViewModelAssistedFactory<MealsViewModel>
 }

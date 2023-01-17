@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CategoriesViewModel @Inject constructor(
-    val getCategoryListUseCase: GetCategoryListUseCase,
+    private val getCategoryListUseCase: GetCategoryListUseCase,
 ) : BaseViewModel<CategoriesEvent, CategoriesState, CategoriesEffect>() {
 
     init {

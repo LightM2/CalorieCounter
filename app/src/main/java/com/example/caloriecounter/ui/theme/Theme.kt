@@ -12,11 +12,11 @@ private val DarkColorPalette = darkColors(
     primaryVariant = Teal900,
     secondary = Green100,
     background = Color.Black,
-    surface = Color.White,
+    surface = Color.Black.copy(alpha = 0.5f),
     onPrimary = Color.White,
     onSecondary = Color.Black,
     onBackground = Color.White,
-    onSurface = Color.Black,
+    onSurface = Color.White,
 )
 
 private val LightColorPalette = lightColors(

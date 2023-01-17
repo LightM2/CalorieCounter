@@ -1,18 +1,20 @@
 package com.example.caloriecounter.feature.restaurant.di.meals
 
-import androidx.navigation.NavBackStackEntry
+import androidx.lifecycle.ViewModel
+import com.example.caloriecounter.base.ViewModelAssistedFactory
+import com.example.caloriecounter.base.ViewModelKey
 import com.example.caloriecounter.feature.restaurant.ui.meals.MealsViewModel
-import com.example.domain.usecases.retrofit.GetMealListUseCase
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
+import dagger.multibindings.IntoMap
 
 @Module
-class MealsModule {
+abstract class MealsModule {
 
-    @Provides
+    @Binds
     @MealsScope
-    fun provideViewModel(
-        getMealListUseCase: GetMealListUseCase,
-        backStackEntry: NavBackStackEntry
-    ): MealsViewModel = MealsViewModel(getMealListUseCase, backStackEntry)
+    @IntoMap
+    @ViewModelKey(MealsViewModel::class)
+    abstract fun bindFactory(factory: MealsViewModel.Factory): ViewModelAssistedFactory<out ViewModel>
+
 }

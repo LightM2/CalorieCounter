@@ -54,7 +54,7 @@ fun MealListScreen(
                         ) { meal ->
                             MealItemComponent(
                                 meal = meal,
-                                onClick = onNavigationRequested,
+                                onClick = { onEventSent(MealsEvent.SelectedMeal(it)) },
                                 modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
                             )
                         }

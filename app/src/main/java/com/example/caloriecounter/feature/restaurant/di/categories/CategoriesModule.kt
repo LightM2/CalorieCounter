@@ -1,14 +1,20 @@
 package com.example.caloriecounter.feature.restaurant.di.categories
 
+import androidx.lifecycle.ViewModel
+import com.example.caloriecounter.base.ViewModelAssistedFactory
+import com.example.caloriecounter.base.ViewModelKey
 import com.example.caloriecounter.feature.restaurant.ui.categories.CategoriesViewModel
-import com.example.domain.usecases.retrofit.GetCategoryListUseCase
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
+import dagger.multibindings.IntoMap
 
 @Module
-class CategoriesModule {
-    @Provides
+abstract class CategoriesModule {
+
+    @Binds
     @CategoriesScope
-    fun provideViewModel(getCategoryListUseCase: GetCategoryListUseCase): CategoriesViewModel =
-        CategoriesViewModel(getCategoryListUseCase)
+    @IntoMap
+    @ViewModelKey(CategoriesViewModel::class)
+    abstract fun bindViewModel(categoriesViewModel: CategoriesViewModel): ViewModel
+
 }
