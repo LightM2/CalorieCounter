@@ -5,15 +5,16 @@ import com.example.data.retrofit.models.Meals
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("filter.php?c={category}")
-    suspend fun getMeals(@Path("category") category: String): Response<Meals>
+    @GET("filter.php")
+    suspend fun getMeals(@Query("c") categoryName: String): Response<Meals>
 
     @GET("categories.php")
     suspend fun getCategories(): Response<Categories>
 
-    @GET("lookup.php?i={id}")
-    suspend fun getMealInformation(@Path("id") id: String): Response<Meals>
+    @GET("lookup.php")
+    suspend fun getMealInformation(@Query("i") id: String): Response<Meals>
 }

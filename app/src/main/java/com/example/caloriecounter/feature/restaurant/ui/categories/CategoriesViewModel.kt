@@ -2,15 +2,14 @@ package com.example.caloriecounter.feature.restaurant.ui.categories
 
 import androidx.lifecycle.viewModelScope
 import com.example.caloriecounter.base.BaseViewModel
-import com.example.caloriecounter.base.DataState
 import com.example.domain.handle
 import com.example.domain.usecases.retrofit.GetCategoryListUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CategoriesViewModel @Inject constructor(
-    val getCategoryListUseCase: GetCategoryListUseCase,
-) : BaseViewModel<CategoriesContract.Event, CategoriesContract.State, CategoriesContract.Effect>() {
+    private val getCategoryListUseCase: GetCategoryListUseCase,
+) : BaseViewModel<CategoriesEvent, CategoriesState, CategoriesEffect>() {
 
     init {
         getCategories()
@@ -21,26 +20,26 @@ class CategoriesViewModel @Inject constructor(
             getCategoryListUseCase().handle(
                 onSuccess = { categories ->
                     setState {
-                        CategoriesContract.State.Success(categories)
+                        CategoriesState.Success(categories)
                     }
                 },
                 onError = { message ->
                     setState {
-                        CategoriesContract.State.Error(message)
+                        CategoriesState.Error(message)
                     }
                 }
             )
         }
     }
 
-    override fun setInitialState(): CategoriesContract.State = CategoriesContract.State.Loading
+    override fun setInitialState(): CategoriesState = CategoriesState.Loading
 
-    override fun handleEvents(event: CategoriesContract.Event) {
+    override fun handleEvents(event: CategoriesEvent) {
         when (event) {
-            is CategoriesContract.Event.SelectedCategory -> {
-                setEffect { CategoriesContract.Effect.Navigation.ToCategoryMeals(event.category) }
+            is CategoriesEvent.SelectedCategory -> {
+                setEffect { CategoriesEffect.Navigation.ToCategoryMeals(event.category) }
             }
-            is CategoriesContract.Event.ReloadData -> {
+            is CategoriesEvent.ReloadData -> {
                 setInitialState()
                 getCategories()
             }
