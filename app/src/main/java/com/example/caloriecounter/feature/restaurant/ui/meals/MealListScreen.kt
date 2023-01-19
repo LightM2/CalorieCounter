@@ -67,6 +67,7 @@ fun MealListScreen(
                         reloadData = { onEventSent(MealsEvent.ReloadData) }
                     )
                 }
+                else -> {}
             }
         }
 

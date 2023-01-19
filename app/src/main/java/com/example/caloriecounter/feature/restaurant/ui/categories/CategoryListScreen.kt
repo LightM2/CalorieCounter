@@ -67,6 +67,7 @@ fun CategoryListScreen(
                         reloadData = { onEventSent(CategoriesEvent.ReloadData) }
                     )
                 }
+                else -> {}
             }
         }
 
